@@ -1,0 +1,38 @@
+<view class="main">
+  <view class="header-new">
+    <image src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" class="thumb"></image>
+    <text class="nickname">微信用户</text>
+    <text class="about">关于我们</text>
+  </view>
+
+  <view class="address-box">
+    <view class="address-manage">
+      <navigator url="/pages/address/address">地址管理</navigator>
+    </view>
+    <view wx:if="{{hasAddress}}" class="address-list">
+      <view>{{address.consignee}}</view>
+      <view>{{address.mobile}}</view>
+      <view>{{address.address}}</view>
+    </view>
+  </view>
+  <view class="orders-box">
+    <view class="orders">我的订单</view>
+    <scroll-view scroll-y="true" bindscrolltolower="searchScrollLower" class="newsListView"  style="height: {{scrollHeight}}rpx;">
+      <view class="orders-list" wx:for="{{orders}}" wx:key="index">
+        <view class="orders-number">订单编号：{{item.order_no}}</view>
+        <view class="orders-detail">
+          <image src="{{'https://hanmashanghu.qiaomai365.com' + item.snap_img}}"></image>
+          <view class="">{{item.snap_name}}</view>
+          <view class="">{{item.total_count}}</view>
+          <text class="orders-status">未付款</text>
+        </view>
+        <view class="orders-footer">
+          <text>实付：￥{{item.total_price}}</text>
+          <button size="mini" class="orders-btn" bindtap="payOrders">付款</button>
+        </view>
+      </view>
+      <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>
+      <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>
+    </scroll-view>
+  </view>
+</view>
